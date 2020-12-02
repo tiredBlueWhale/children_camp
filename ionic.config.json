@@ -1,0 +1,7 @@
+{
+  "name": "pondeReact",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
