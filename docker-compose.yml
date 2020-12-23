@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  couchdb:
+    image: couchdb:latest
+    container_name: ${CONTAINER_NAME}
+    environment:
+      # TODO:CHANGE IN PRODUCTIN
+      COUCHDB_USER: ${COUCHDB_USER}
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD}
+    # Creates user db on StartUp
+    volumes:
+      - db-data:/opt/couchdb/data
+      - type: bind
+        source: ./local.ini
+        target: /opt/couchdb/etc/local.ini
+    ports:
+      - '${PORT}:5984'
+  # https://github.com/apache/couchdb/issues/1354
+  # https://stackoverflow.com/questions/63623075/how-to-run-commands-from-docker-compose-yml-to-start-couchdb
+  initializer:
+    image: curlimages/curl
+    container_name: init_db
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - couchdb
+    # command: [
+    # "sh","-c", "sleep 5
+    # && curl -u ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT couchdb:5984/_users 
+    # && curl -u ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT couchdb:5984/_replicator 
+    # && curl -u ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT couchdb:5984/_global_changes
+    # && curl -u ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT couchdb:5984/config_app
+    # && curl -u ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT couchdb:5984/_users/org.couchdb.user:admin -H Accept: application/json -H Content-Type: application/json -d ${DEFAULT_USER}; "
+    # ]
+    volumes: 
+      - type: bind
+        source: ./.env
+        target: /.env
+      - type: bind
+        source: ./init.sh
+        target: /init.sh
+    command: [
+      "sh", 
+      "-c", 
+      "chmod +x init.sh && ./init.sh"
+    ]
+
+volumes:
+  db-data:
+    name: couchdb_data
+
+  
