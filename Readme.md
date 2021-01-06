@@ -29,34 +29,38 @@
 - [x] Authentication/Authorization
 - []
 
-#### Local Development
+### Bugs/Erros
 
-##### Pre Requirements
+- [] Linux `chmod` not authorised
+
+### Local Development
+
+#### Pre Requirements
 
 1. [Docker](https://www.docker.com/products/docker-desktop)
 2. [npm](https://www.npmjs.com/)
 3. `npm install` 
 
-##### Front-End
+#### Front-End
 Chrome(Port:5000) `mpn run chrome`
 Default Browser `ionic serve`
 
-##### Back-End Port:5984
+#### Back-End Port:5984
 Start: `docker-compose up` || `make start`
 Stop: `make stop`
 Reseting and Restarting `make`. Deleted container && couchdb volume && restart
 
-##### User
-###### Admin User DB
+#### User
+##### Admin User DB
 username: `god`
 passowrd: `secret`
 Can be used to log into DB `localhost:5984/_utils`. Use incognito tab, since cookie is used for authorization.
 
-###### Admin User Platform
+##### Admin User Platform
 username: `admin`
 password: `pass`
 
-##### Insert via browser
+#### Insert via browser
 ```json
 {
   "_id": "9f4f9a184ffb26f1951329bfbf000f53"
