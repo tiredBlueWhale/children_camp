@@ -44,7 +44,7 @@ services:
     command: [
       "sh", 
       "-c", 
-      "chmod +x init.sh && ./init.sh"
+      "./init.sh"
     ]
 
 volumes:

@@ -4,27 +4,23 @@ import { useState, useEffect } from "react";
 export function useUserMedia(requestedMedia) {
   const [mediaStream, setMediaStream] = useState(null);
 
+  const enableStream = async() => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia(requestedMedia);
+      setMediaStream(stream);
+    } catch (err) {
+      // Removed for brevity
+      console.error('Getting Media Stream');
+    }
+  }
   // TODO::ERROR if scanner was not open before logout
   useEffect(() => {
-    async function enableStream() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia(requestedMedia);
-        setMediaStream(stream);
-      } catch (err) {
-        // Removed for brevity
-        console.error('Getting Media Stream');
-      }
-    }
+    let mounted = true;
+    if (mounted && !mediaStream) enableStream();
 
-    if (!mediaStream) {
-      enableStream();
-    } else {
-      return function cleanup() {
-        mediaStream.getTracks().forEach(track => {
-          console.log('stop recording');
-          track.stop();
-        });
-      }
+    return () => {
+      mounted = false;
+      if (mediaStream) mediaStream.getTracks().forEach(track => { track.stop(); });
     }
   }, [mediaStream, requestedMedia]);
 

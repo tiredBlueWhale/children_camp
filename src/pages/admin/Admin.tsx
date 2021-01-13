@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   IonContent,
   IonHeader,
@@ -15,6 +15,7 @@ import {
 } from '@ionic/react';
 import { person, cart, restaurant, add, clipboard, logOut } from 'ionicons/icons';
 import { IAdminButton } from '../../models/button.model';
+import { AppContext, loggedOut } from '../../State';
 
 const buttons: IAdminButton[] = [
   { url: '/user/', icon: person, id: '12' },
@@ -26,6 +27,8 @@ const buttons: IAdminButton[] = [
 const Admin = function (props: any) {
   const [logout, setLogout] = useState(false);
   const [activity, setActivity] = useState(false);
+
+  const { setState } = useContext(AppContext);
 
   useIonViewWillEnter(() => {
     setContentWidth();
@@ -74,7 +77,8 @@ const Admin = function (props: any) {
               text: 'Ok',
               cssClass: 'warning',
               handler: () => {
-                props.history.push('/login')
+                setState(loggedOut());
+                // props.history.push('/login')
               }
             }
           ]} />

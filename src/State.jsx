@@ -52,8 +52,8 @@ let reducer = (state, action) => {
       }
     }
     case "LOGOUT": {
-      // TODO DELETE auth.user
-      window.localStorage.clear();
+      console.log('LOGOUT');
+      clearLocalData();
       return {
         ...state,
         auth: {
@@ -67,6 +67,13 @@ let reducer = (state, action) => {
     }
   }
 };
+
+const clearLocalData = async() => {
+  window.localStorage.clear();
+  //https://gist.github.com/rmehner/b9a41d9f659c9b1c3340
+  const dbs = await window.indexedDB.databases()
+  dbs.forEach(db => { window.indexedDB.deleteDatabase(db.name) })
+}
 
 // eslint-disable-next-line
 export const AppContext = createContext();
@@ -106,4 +113,4 @@ export function AppContextProvider(props) {
 export const darkMode = () => ({ type: "DARK_MODE" });
 export const changeEdit = () => ({ type: "SETTING_EDIT" });
 export const loggedIn = (user) => ({ type: "LOGIN", user });
-export const logout = () => ({ type: "LOGOUT" });
+export const loggedOut = () => ({ type: "LOGOUT" });

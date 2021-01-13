@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import PouchDB from 'pouchdb';
 import PouchdbFind from 'pouchdb-find';
-import { AppContext, logout } from '../State';
+import { AppContext, loggedOut } from '../State';
 import { DBDocument, IKid } from '../models';
 
 PouchDB.plugin(PouchdbFind);
@@ -22,7 +22,7 @@ export const useDB = (urlDB: string, initFilter: any) => {
         new PouchDB(couchDBURL + urlDB, {
             fetch: (url, opts) => fetch(url, { ...opts, credentials: 'include' /* OR 'same-origin' */ })
                 .then((response: Response) => {
-                    if (response.status === 401) setState(logout());
+                    if (response.status === 401) setState(loggedOut());
                     return response;
                 })
                 .catch(error => {

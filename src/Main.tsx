@@ -55,14 +55,14 @@ const Main = () => {
                     <IonIcon icon={settings} />
                     <IonLabel>Settings</IonLabel>
                 </IonTabButton>}
-                {!state.ui.mobile && <IonTabButton tab="logout" onClick={() => { console.log('Logout') }}>
+                {/* {!state.ui.mobile && <IonTabButton tab="logout" onClick={() => { console.log('Logout') }}>
                     <IonIcon icon={logOut} />
                     <IonLabel>Logout</IonLabel>
-                </IonTabButton>}
-                <IonButton>
+                </IonTabButton>} */}
+                {/* <IonButton>
                     <IonIcon icon={logOut} />
                     <IonLabel>Logout</IonLabel>
-                </IonButton>
+                </IonButton> */}
             </IonTabBar>
         </IonTabs>)
 }
