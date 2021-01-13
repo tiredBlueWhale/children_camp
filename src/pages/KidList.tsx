@@ -19,35 +19,11 @@ import {
   IonItemSliding,
   // IonNav,
 } from '@ionic/react';
-// import { options } from 'ionicons/icons';
 import { IKid, KidState } from '../models';
 import { AppContext } from '../State';
 import { IToolbarSelect, ToolbarSearch, ToolbarSelect } from '../components/Toolbar';
 import { person, earth } from 'ionicons/icons';
 import { filterKid, updateDoc, useDB } from '../db/db';
-
-const dummyData = [
-  { name: "Hans", address: "Street123", state: 1 },
-//   { name: "Hans", address: "Street123", state: 2 },
-//   { name: "Hans", address: "Street123", state: 2 },
-//   { name: "Hans", address: "Street123", state: 2 },
-//   { name: "Hans", address: "Street123", state: 1 },
-//   { name: "Hans", address: "Street123", state: 1 },
-//   { name: "Hans", address: "Street123", state: 1 },
-//   { name: "Hans", address: "Street123", state: 0 },
-//   { name: "Hans", address: "Street123", state: 0 },
-//   { name: "Hans", address: "Street123", state: 1 },
-//   { name: "Hans", address: "Street123", state: 1 },
-//   { name: "Hans", address: "Street123", state: 0 },
-//   { name: "Hans", address: "Street123", state: 1 },
-//   { name: "Hans", address: "Street123", state: 1 },
-]
-
-// const sortOptions: IToolbarSelect[] = [
-//   { value: 'group', title: 'Group' },
-//   { value: 'asc', title: 'Asc' },
-//   { value: 'dec', title: 'Dec' }
-// ];
 
 const filterOptions: IToolbarSelect[] = [
   { value: 'default', title: 'All' },
@@ -57,33 +33,15 @@ const filterOptions: IToolbarSelect[] = [
 ];
 
 const KidList = (props: any) => {
-  // console.log(props);
   const [searchInput, setSearchText] = useState<string>('');
   const [sort, setSort] = useState<string>('group');
   const [filter, setFilter] = useState<string>('default');
   const [data, setDBFilterState, setOperation] = useDB('kids', filterKid());
 
-  // console.log(data);
-
   useEffect(() => {
-    // console.log(searchInput);
     setDBFilterState(filterKid(searchInput, filter));
-    // searchInput ? setDBState(searchData(searchInput)) : setDBState(allData())
+
   }, [searchInput, filter])
-
-  // useEffect(() => {
-  //   // console.log(searchInput);
-  //   // setDBState(searchData(searchInput))
-  //   // searchInput ? setDBState(searchData(searchInput)) : setDBState(allData())
-  // }, )
-
-  useEffect(() => {
-    // console.log(searchInput);
-    console.log(data)
-  },[data])
-
-
-  // const { state, setState } = useContext(AppContext);
 
   const setRowColor = (kid: IKid) => {
     switch (kid.state) {
@@ -162,8 +120,8 @@ const KidList = (props: any) => {
                     color={setRowColor(kid)}
                     button
                     onClick={(e) => changeKidState(kid)}
-                    // onClick={(e) => { state.setting.edit ? changeKidState(kid) : props.history.push({ pathname: props.match.path + '/' + kid.name, data: kid }); }}
-                    // detail={!state.setting.edit}
+                  // onClick={(e) => { state.setting.edit ? changeKidState(kid) : props.history.push({ pathname: props.match.path + '/' + kid.name, data: kid }); }}
+                  // detail={!state.setting.edit}
                   >
                     {/* detail={!edit}> */}
                     <IonAvatar slot="start">
@@ -173,7 +131,7 @@ const KidList = (props: any) => {
                       <h2>{kid.name}</h2>
                       <h3>{kid.address} {kid.group}</h3>
                     </IonLabel>
-                    <IonButton slot="end" size="large" fill="clear" onClick={e => pushDetail(e, kid)}><IonIcon slot="icon-only" icon={person}/></IonButton>
+                    <IonButton slot="end" size="large" fill="clear" onClick={e => pushDetail(e, kid)}><IonIcon slot="icon-only" icon={person} /></IonButton>
                   </IonItem>
                   {/* <IonItemOptions side="end">
                     <IonItemOption onClick={() => console.log('favorite clicked')}>Activity</IonItemOption>

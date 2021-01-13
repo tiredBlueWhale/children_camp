@@ -31,7 +31,18 @@
 
 ### Bugs/Erros
 
-- [] Linux `chmod` not authorised
+#### Warning Can't perform a React state update on an unmounted component
+##### Why
+Tabs initalise useStates 
+-> If Tab does not get opened 
+-> Component is unmounted
+-> Results in Error
+
+##### Solution
+-> Change nothing since it does not break anything
+-> Change App routing to have tabs on bottom of UI stack
+-> Decouple Login & App (Same result as above tabs would be on bottom of stack)
+
 
 ### Local Development
 
@@ -40,6 +51,9 @@
 1. [Docker](https://www.docker.com/products/docker-desktop)
 2. [npm](https://www.npmjs.com/)
 3. `npm install` 
+
+##### OSX
+- Docker needs access to project folder
 
 #### Front-End
 Chrome(Port:5000) `mpn run chrome`
